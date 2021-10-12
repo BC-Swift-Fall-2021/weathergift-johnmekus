@@ -21,21 +21,28 @@ class LocationListViewController: UIViewController
     {
         super.viewDidLoad()
         
-//        var weatherLocation = WeatherLocation(name: "Chestnut Hill, MA", latitude: 0, longitude: 0)
-//        weatherLocations.append(weatherLocation)
-//        weatherLocation = WeatherLocation(name: "Lilongwe, Malawi", latitude: 0, longitude: 0)
-//        weatherLocations.append(weatherLocation)
-//        weatherLocation = WeatherLocation(name: "Buenos Aires, Argentina", latitude: 0, longitude: 0)
-//        weatherLocations.append(weatherLocation)
-        
         
         tableView.dataSource = self
         tableView.delegate = self
     }
     
+    func saveLocations()
+    {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(weatherLocations)
+        {
+            UserDefaults.standard.setValue(encoded, forKey: "weatherLocations")
+        }
+        else
+        {
+            print("ERROR: Saving encoded didn't work!")
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         selectedLocationIndex = tableView.indexPathForSelectedRow!.row
+        saveLocations()
     }
     
     
@@ -119,15 +126,6 @@ extension LocationListViewController: GMSAutocompleteViewControllerDelegate {
   // User canceled the operation.
   func wasCancelled(_ viewController: GMSAutocompleteViewController) {
     dismiss(animated: true, completion: nil)
-  }
-
-  // Turn the network activity indicator on and off again.
-  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = true
-  }
-
-  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
   }
 
 }

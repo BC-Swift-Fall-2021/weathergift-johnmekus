@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YbN-v7-CVD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ri4-qh-M08">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -8,10 +8,18 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Page View Controller-->
+        <scene sceneID="tYy-Vo-EoX">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Ri4-qh-M08" customClass="PageViewController" customModule="WeatherGift" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zSW-ce-sZ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-727" y="-601"/>
+        </scene>
         <!--Location Detail View Controller-->
         <scene sceneID="HAC-em-9pd">
             <objects>
-                <viewController id="YbN-v7-CVD" customClass="LocationDetailViewController" customModule="WeatherGift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationDetailViewController" id="YbN-v7-CVD" customClass="LocationDetailViewController" customModule="WeatherGift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cce-hx-h0r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +34,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="dIY-Sd-e9p"/>
                                     <barButtonItem image="list.bullet" catalog="system" id="Msn-2J-nxZ">
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="presentation" id="87w-al-AP8"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="87w-al-AP8"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -102,11 +110,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="LocationListViewController" customModule="WeatherGift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W5B-0X-Tpi">
-                                <rect key="frame" x="0.0" y="603" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="g7p-0O-txC"/>
                                 </constraints>
@@ -125,7 +133,7 @@
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4yU-43-kjS">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="vkL-tD-y84" detailTextLabel="GAy-nO-M0K" style="IBUITableViewCellStyleSubtitle" id="cUw-Ii-hEV">
