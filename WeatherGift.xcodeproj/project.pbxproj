@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1722BBC727151C8C003766AB /* APIkeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1722BBC627151C8C003766AB /* APIkeys.swift */; };
+		1722BBC9271522EF003766AB /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1722BBC8271522EF003766AB /* LocationDetailViewController.swift */; };
 		172F4E3E270BE0FF0026BFC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172F4E3D270BE0FF0026BFC7 /* AppDelegate.swift */; };
 		172F4E40270BE0FF0026BFC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172F4E3F270BE0FF0026BFC7 /* SceneDelegate.swift */; };
 		172F4E42270BE0FF0026BFC7 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172F4E41270BE0FF0026BFC7 /* LocationListViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		1722BBC627151C8C003766AB /* APIkeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIkeys.swift; sourceTree = "<group>"; };
+		1722BBC8271522EF003766AB /* LocationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
 		172F4E3A270BE0FF0026BFC7 /* WeatherGift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherGift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		172F4E3D270BE0FF0026BFC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		172F4E3F270BE0FF0026BFC7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				172F4E3D270BE0FF0026BFC7 /* AppDelegate.swift */,
 				172F4E3F270BE0FF0026BFC7 /* SceneDelegate.swift */,
 				172F4E51270BE1220026BFC7 /* WeatherLocation.swift */,
+				1722BBC8271522EF003766AB /* LocationDetailViewController.swift */,
 				172F4E41270BE0FF0026BFC7 /* LocationListViewController.swift */,
 				172F4E43270BE0FF0026BFC7 /* Main.storyboard */,
 				172F4E46270BE1000026BFC7 /* Assets.xcassets */,
@@ -215,6 +218,7 @@
 				172F4E52270BE1220026BFC7 /* WeatherLocation.swift in Sources */,
 				1722BBC727151C8C003766AB /* APIkeys.swift in Sources */,
 				172F4E3E270BE0FF0026BFC7 /* AppDelegate.swift in Sources */,
+				1722BBC9271522EF003766AB /* LocationDetailViewController.swift in Sources */,
 				172F4E40270BE0FF0026BFC7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
