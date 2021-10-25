@@ -7,79 +7,72 @@
 
 import Foundation
 
-private let dateFormatter: DateFormatter =
-    {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter
-    }()
+private let dateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "EEEE"
+    return dateFormatter
+}()
 
-private let hourFormatter: DateFormatter =
-    {
-        let hourFormatter = DateFormatter()
-        hourFormatter.dateFormat = "ha"
-        return hourFormatter
-    }()
+private let hourFormatter: DateFormatter = {
+    let hourFormatter = DateFormatter()
+    hourFormatter.dateFormat = "ha"
+    return hourFormatter
+}()
 
-struct DailyWeather
-{
+struct DailyWeather {
     var dailyIcon: String
     var dailyWeekday: String
     var dailySummary: String
     var dailyHigh: Int
     var dailyLow: Int
 }
-
-struct HourlyWeather
-{
+struct HourlyWeather {
     var hour: String
     var hourlyTemperature: Int
     var hourlyIcon: String
 }
 
-class WeatherDetail: WeatherLocation
-{
-    private struct Result: Codable
-    {
-        var timezone: String
+
+
+class WeatherDetail: WeatherLocation {
+    
+   private struct Result: Codable {
+        var timezone: String!
         var current: Current
         var daily: [Daily]
         var hourly: [Hourly]
     }
     
-    private struct Current: Codable
-    {
+    private struct Current: Codable {
         var dt: TimeInterval
         var temp: Double
         var weather: [Weather]
     }
     
-    private struct Weather: Codable
-    {
+    private struct Weather: Codable {
         var description: String
         var icon: String
         var id: Int
     }
     
-    private struct Daily: Codable
-    {
+    private struct Daily: Codable {
         var dt: TimeInterval
         var temp: Temp
         var weather: [Weather]
     }
     
-    private struct Hourly: Codable
-    {
+    private struct Hourly: Codable {
         var dt: TimeInterval
         var temp: Double
         var weather: [Weather]
     }
     
-    private struct Temp: Codable
-    {
+    private struct Temp: Codable {
         var max: Double
         var min: Double
     }
+    
+
     
     var timezone = ""
     var currentTime = 0.0
@@ -89,43 +82,39 @@ class WeatherDetail: WeatherLocation
     var dailyWeatherData: [DailyWeather] = []
     var hourlyWeatherData: [HourlyWeather] = []
     
-    func getData(completed: @escaping () -> ())
-    {
-        let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=-\(longitude)&exclude=minutely&units=imperial&appid=\(APIkeys.openWeatherKey)"
+    func getData(completed: @escaping () -> ()) {
+        let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=\(longitude)&exclude=minutely&units=imperial&appid=\(APIkeys.openWeatherKey)"
+                
+        print("🕸 We are accessing the url \(urlString)")
         
-        print("We are accessing the url \(urlString)")
-        
-        //create a URL
-        guard let url = URL(string: urlString) else
-        {
-            print("ERROR: Could not create a URL from \(urlString)")
+        // Create a URL
+        guard let url = URL(string: urlString) else {
+            print("😡 ERROR: Could not create a URL from \(urlString)")
             completed()
             return
         }
         
-        //create session
+        // Create session
+        
         let session = URLSession.shared
         
-        //get data with .datatask method
-        let task = session.dataTask(with: url) { data, response, error in
-            if let error = error
-            {
-                print("ERROR: \(error.localizedDescription)")
+        // get data with .dataTask method
+        let task = session.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("😡 ERROR: \(error.localizedDescription)")
             }
             
-            //NOTE: other things could be going wrong with URLs but we are ignoring those for right now...
+            // note: there are some additional things that could go wrong when using URLSession, but we shouldn't experience them, so we'll ignore testing for these for now...
             
-            //deal with the data
-            do
-            {
+            // deal with the data
+            do {
                 let result = try JSONDecoder().decode(Result.self, from: data!)
                 self.timezone = result.timezone
                 self.currentTime = result.current.dt
                 self.temperature = Int(result.current.temp.rounded())
                 self.summary = result.current.weather[0].description
                 self.dayIcon = self.fileNameForIcon(icon: result.current.weather[0].icon)
-                for index in 0..<result.daily.count
-                {
+                for index in 0..<result.daily.count {
                     let weekdayDate = Date(timeIntervalSince1970: result.daily[index].dt)
                     dateFormatter.timeZone = TimeZone(identifier: result.timezone)
                     let dailyWeekday = dateFormatter.string(from: weekdayDate)
@@ -136,12 +125,10 @@ class WeatherDetail: WeatherLocation
                     let dailyWeather = DailyWeather(dailyIcon: dailyIcon, dailyWeekday: dailyWeekday, dailySummary: dailySummary, dailyHigh: dailyHigh, dailyLow: dailyLow)
                     self.dailyWeatherData.append(dailyWeather)
                 }
-                //get no more than 24 hours of data
+                // get no more than 24 hrs of hourly data
                 let lastHour = min(24, result.hourly.count)
-                if lastHour > 0
-                {
-                    for index in 1...lastHour
-                    {
+                if lastHour > 0 {
+                    for index in 1...lastHour {
                         let hourlyDate = Date(timeIntervalSince1970: result.hourly[index].dt)
                         hourFormatter.timeZone = TimeZone(identifier: result.timezone)
                         let hour = hourFormatter.string(from: hourlyDate)
@@ -151,21 +138,16 @@ class WeatherDetail: WeatherLocation
                         self.hourlyWeatherData.append(hourlyWeather)
                     }
                 }
-            } catch
-            {
-                print("JSON ERROR: \(error.localizedDescription)")
+            } catch {
+                print("😡 JSON ERROR: \(error.localizedDescription)")
             }
             completed()
         }
-        
         task.resume()
     }
-    
-    private func fileNameForIcon(icon: String) -> String
-    {
+    private func fileNameForIcon(icon: String) -> String {
         var newFileName = ""
-        switch icon
-        {
+        switch icon {
         case "01d":
             newFileName = "clear-day"
         case "01n":
@@ -178,7 +160,7 @@ class WeatherDetail: WeatherLocation
             newFileName = "cloudy"
         case "09d", "09n", "10d", "10n":
             newFileName = "rain"
-        case "11d", "11n":
+        case "011d", "11n":
             newFileName = "thunderstorm"
         case "13d", "13n":
             newFileName = "snow"
@@ -190,10 +172,8 @@ class WeatherDetail: WeatherLocation
         return newFileName
     }
     
-    private func systemNameFromID(id: Int, icon: String) -> String
-    {
-        switch id
-        {
+    private func systemNameFromID(id:Int, icon:String) ->String {
+        switch id {
         case 200...299:
             return "cloud.bolt.rain"
         case 300...399:

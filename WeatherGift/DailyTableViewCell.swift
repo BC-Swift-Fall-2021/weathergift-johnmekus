@@ -7,13 +7,12 @@
 
 import UIKit
 
-class DailyTableViewCell: UITableViewCell
-{
+class DailyTableViewCell: UITableViewCell {
     @IBOutlet weak var dailyImageView: UIImageView!
     @IBOutlet weak var dailyWeekdayLabel: UILabel!
     @IBOutlet weak var dailyHighLabel: UILabel!
-    @IBOutlet weak var dailySummaryView: UITextView!
     @IBOutlet weak var dailyLowLabel: UILabel!
+    @IBOutlet weak var dailySummaryView: UITextView!
     
     var dailyWeather: DailyWeather! {
         didSet {
@@ -24,4 +23,5 @@ class DailyTableViewCell: UITableViewCell
             dailyLowLabel.text = "\(dailyWeather.dailyLow)°"
         }
     }
+
 }

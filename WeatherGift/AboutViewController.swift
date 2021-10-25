@@ -7,17 +7,13 @@
 
 import UIKit
 
-class AboutViewController: UIViewController
-{
+class AboutViewController: UIViewController {
 
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
+
     }
-    
-    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem)
-    {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-
 }
